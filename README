@@ -1,0 +1,24 @@
+mkdir NAME
+cd NAME
+git clone https://github.com/Jaibw/chaoskube-0.2.0.git
+cd chaoskube-0.2.0
+sed -i 's/YOURNAME/NAME/g' values.yaml
+cd ..
+
+kubectl create ns NAME
+kubectl create -f https://raw.githubusercontent.com/Jaibw/docker/main/easy_deployment_recreate.yaml -n NAME
+helm install NAME-chaoskube chaoskube-0.2.0/ --namespace=NAME-chaoskube --create-namespace
+watch kubectl get pods -n NAME 
+
+
+eg. 
+mkdir jai
+cd jai
+git clone https://github.com/Jaibw/chaoskube-0.2.0.git
+cd chaoskube-0.2.0
+sed -i 's/YOURNAME/jai/g' values.yaml
+cd ..
+kubectl create ns jai
+kubectl create -f https://raw.githubusercontent.com/Jaibw/docker/main/easy_deployment_recreate.yaml -n jai
+helm install jai-chaoskube chaoskube-0.2.0/ --namespace=jai-chaoskube --create-namespace
+watch kubectl get pods -n jai 
